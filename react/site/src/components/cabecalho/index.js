@@ -1,13 +1,13 @@
-import { ContainerCabecalho } from './styled.js'
+import { ContainerCabecalho, Barra } from './styled.js'
 
 export default function Cabecalho() {
     return (
         <ContainerCabecalho>
             <div className="titulo">Dev<span className="titulo1">School</span></div>
-            <div className="faixa">f</div>
+            <div className="faixa"></div>
             <div className="salas">Gerenciamento</div>
             <div className="fundos">
-                <div className="traco"></div>
+                <Barra />
                 <div className="categorias">Alunos</div>
             </div>
         </ContainerCabecalho>

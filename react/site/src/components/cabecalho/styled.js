@@ -1,5 +1,13 @@
 import styled from 'styled-components'
 
+const Barra = styled.div `
+    background: linear-gradient(180deg, #DB21BD -10.17%, #DB21BD 115.25%);
+    width: 3px;
+    height: 50px;
+    border-radius: 1em;
+`
+
+
 const ContainerCabecalho = styled.div`
     display: flex;
     flex-direction: column;
@@ -11,10 +19,11 @@ const ContainerCabecalho = styled.div`
     font-family: 'Roboto', sans-serif;
 
     .titulo {
-        padding: 1.3em 3.5em 1.3em 2em;
+        padding: 1.3em 4em 1.3em 2.5em;
 
         color: #EA10C7;
         font-size: 28px;
+        font-weight: bold;
     }
 
     .titulo1 {
@@ -22,10 +31,10 @@ const ContainerCabecalho = styled.div`
     }
 
     .faixa {
-        background-color: black;
+        background: #262626;
         color: black;
 
-        height: 3em;
+        height: 3.5em;
         width: 100%;
     }
 
@@ -44,13 +53,6 @@ const ContainerCabecalho = styled.div`
         width: 100%;
     }
 
-    .traco {
-        background: linear-gradient(180deg, #DB21BD -10.17%, #DB21BD 115.25%);
-        width: 3px;
-        height: 46px;
-        border-radius: 1em;
-    }
-
     .categorias {
         color: #1A1A1A;
 
@@ -58,4 +60,4 @@ const ContainerCabecalho = styled.div`
     }
 `
 
-export { ContainerCabecalho }
+export { ContainerCabecalho, Barra }

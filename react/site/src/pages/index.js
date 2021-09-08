@@ -1,6 +1,6 @@
 import { Container } from './styled.js'
-import Conteudo from './conteudo.js'
 import Cabecalho from '../components/cabecalho/index.js'
+import Conteudo from './conteudo.js'
 
 
 export default function devMonk() {
