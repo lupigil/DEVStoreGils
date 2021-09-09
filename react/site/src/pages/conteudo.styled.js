@@ -233,8 +233,20 @@ const ContainerConteudo = styled.div`
         background: #986CDF;
     }
 
-    .registroTb1 {
+    .linha-alternada {
         background: #F5F5F5;
+    }
+
+    .botao-visivel > button {
+        visibility: hidden;
+    }
+
+    tr:hover {
+        
+        .botao-visivel > button {
+            visibility: visible;
+        }
+        
     }
 `
 

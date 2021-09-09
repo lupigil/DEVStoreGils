@@ -20,6 +20,9 @@ const ContainerCabecalho = styled.div`
 
     width: 55vh;
 
+    position: sticky;
+    top: 0px;
+
     .titulo-livro {
         display: flex;
         flex-direction: row;
