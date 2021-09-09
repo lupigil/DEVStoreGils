@@ -97,6 +97,17 @@ const ContainerConteudo = styled.div`
     }
 
 
+
+    .matriculados {
+        display: flex;
+        flex-direction: column;
+
+        background-color: #fff;
+
+        padding: 2.5em 3em;
+        margin: 4em 0em 2em 0em;
+    }
+
     .alunosMatri {
         font-size: 32px;
         font-weight: bold;

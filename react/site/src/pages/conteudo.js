@@ -67,6 +67,10 @@ export default function Conteudo() {
                     <div className="alunosMatri">Alunos Matriculados</div>
                 </div>
             </div>
+
+            <div className="tabelaMatri">
+                
+            </div>
         </ContainerConteudo>
     )
 }
