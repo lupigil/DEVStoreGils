@@ -24,7 +24,8 @@ const DevButton = styled.button `
     cursor: pointer;
 
     &:hover {
-        background: hotpink;
+        background-color: #aa3997;
+        transition: 1s;
     }
 `
 

@@ -8,38 +8,57 @@ app.use(express.json());
 
 app.get('/matricula', async (req, resp) => {
     try {
-        let r = await db.tb_matricula.findAll();
+        let r = await db.tb_matricula.findAll({ order: [[ 'id_matricula', 'desc' ]] });
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: 'Ocorreu um erro' })
+        resp.send({ erro: e.toString() })
     }
 })
 
 app.post('/matricula', async (req, resp) => {
     try {
-        let matricular = req.body;
-
-        let matricula = await db.tb_matricula.findOne({ where: { nm_aluno: matricular.nome } });
-        if (matricula != null) {
-            return resp.send({ erro: 'Aluno já existe!' })
-        }
+        let { nome, chamada, curso, turma } = req.body;
 
         let r = await db.tb_matricula.create({
-            nm_aluno: matricular.nome,
-            nr_chamada: matricular.numero,
-            nm_curso: matricular.curso,
-            nm_turma: matricular.turma
+            nm_aluno: nome,
+            nr_chamada: chamada,
+            nm_curso: curso,
+            nm_turma: turma
         })
 
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: 'Ocorreu um erro' })
+        resp.send({ erro: e.toString() })
+    }
+})
+
+app.put('/matricula/:id', async (req, resp) => {
+    try {
+        let { nome, chamada, curso, turma } = req.body;
+        let { id } = req.params;
+
+        let r = await db.tb_matricula.update(
+            {
+                nm_aluno: nome,
+                nr_chamada: chamada,
+                nm_curso: curso,
+                nm_turma: turma
+            },
+            {
+                where: { id_matricula: id }
+            }
+        )
+        resp.sendStatus(200);
+    } catch (e) {
+        resp.send({ erro: e.toString() })
     }
 })
 
 app.delete('/matricula/:id', async (req, resp) => {
     try {
-        let r = await db.tb_matricula.destroy({ where: { id_matricula: req.params.id } })
+        let { id } = req.params;
+
+        let r = await db.tb_matricula.destroy({ where: { id_matricula: id } })
         resp.sendStatus(200);
     } catch (e) {
         resp.send({ erro: e.toString() })

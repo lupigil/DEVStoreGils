@@ -9,8 +9,18 @@ export default class Api {
         return r.data;
     }
 
-    async inserirAluno(aluno) {
-        let r = await api.post(`/matricula`, { nome: aluno });
+    async inserirAluno(nome, chamada, curso, turma) {
+        let r = await api.post(`/matricula`, { nome, chamada, curso, turma });
+        return r.data;
+    }
+
+    async alterarAluno(id, nome, chamada, curso, turma) {
+        let r = await api.put('/matriula/' + id, { nome, chamada, curso, turma });
+        return r.data;
+    }
+
+    async removerAluno(id) {
+        let r = await api.delete('/matricula/' + id);
         return r.data;
     }
 }

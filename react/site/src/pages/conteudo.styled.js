@@ -21,10 +21,13 @@ const ContainerConteudo = styled.div`
     font-family: 'Roboto', sans-serif;
 
 
+    img {
+        cursor: pointer;
+    }
+
     .cabecalhoConteudo {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
 
         background-color: #fff;
 
@@ -33,23 +36,68 @@ const ContainerConteudo = styled.div`
         width: 100%;
     }
 
-    .perfil
+    .perfil {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        border-radius: 50%; 
+    }
+
+    .imgPerfil img {
+        width: 57px;
+        height: 57px;
+        border-radius: 50%;
+        height: 57px;
+    }
+
+    .notificacao {
+        color: white;
+        background-color: #DB21BD;
+        border: 3px solid white;
+        border-radius: 50%;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        font-size: .7em;
+    }
 
     .msgPerfil {
         color: #615858;
+
+        margin: 1.3em 0em 0em 1em;
     }
 
     .comandos {
         display: flex;
         flex-direction: row;
+
+        justify-content: flex-start;
+        align-items: flex-end;
+
+        padding: 0.5em 0.5em 0.5em 45em;
     }
 
-    .atualizar {
+    .atualizar button {
         background: #986CDF;
+
+        border: none;
+        border-radius: 50%;
+
+        width: 44px;
+        height: 42px;
+
+        margin-right: 0.5em;
     }
 
-    .logout {
+    .logout button {
         background: #986CDF;
+
+        border: none;
+        border-radius: 50%;
+        
+        width: 44px;
+        height: 44px;
     }
 
     .titulo {
@@ -130,7 +178,6 @@ const ContainerConteudo = styled.div`
         background-color: #fff;
 
         padding: 2.5em 2em;
-        margin: 0em 0em 2em 0em;
 
         box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
 
@@ -138,21 +185,36 @@ const ContainerConteudo = styled.div`
 
     table {
         border: 1px solid #E2E2E2;
+        border-collapse: collapse;
     }
 
     th {
-        padding: 1em 0em;
+        height: 61.93px;
+        text-align: left;
+        padding: 1em;
+        color: #ffff;
+        font-weight: 800;
     }
 
     td {
-        padding: 1em 2.5em;
-
-        color: #6D6868;
         font-size: 18px;
+
+        text-align: left;
+        height:  61.93px;
+        padding: 1em;
+        color: #6D6868;
+        font-weight: 600;
     }
 
-    .cabecalhoTb {
-        font-size: 18px;
+    td button {
+        border-radius: 50%;
+        background-color: #565656;
+        border: none;
+        width: 31px;
+        height: 31px;
+    }
+
+    thead {
         color: #fff;
 
         background: #986CDF;
