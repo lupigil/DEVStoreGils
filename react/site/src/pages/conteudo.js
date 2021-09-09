@@ -99,7 +99,7 @@ export default function Conteudo() {
                         {alunos.map(item => 
 
                             <tr className="registroTb1">
-                                <td>{item.id_matricula}</td>
+                                <td class="idTb1">{item.id_matricula}</td>
                                 <td>{item.nm_aluno}</td>
                                 <td>{item.nr_chamada}</td>
                                 <td>{item.nm_turma}</td>

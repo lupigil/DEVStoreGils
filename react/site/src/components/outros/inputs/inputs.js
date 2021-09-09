@@ -8,6 +8,8 @@ const DevInput = styled.input `
     border-radius: 5px;
 
     cursor: text;
+
+    background: #FFFFFF;
 `
 
 const DevButton = styled.button `

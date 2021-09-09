@@ -85,6 +85,7 @@ const ContainerCabecalho = styled.div`
 
     .categorias {
         color: #1A1A1A;
+        font-weight: 600;
 
         padding-left: 3.3em;
     }

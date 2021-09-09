@@ -147,12 +147,14 @@ const ContainerConteudo = styled.div`
         padding-left: 1.9em;
         margin-bottom: 1em;
 
-        width: 81vh;
+        width: 82vh;
     }
 
     .label {
         color: #615858;
         font-size: 18px;
+        font-weight: 700;
+
         margin-right: 0.5em;
         margin-top: 7px;
     }
@@ -178,9 +180,18 @@ const ContainerConteudo = styled.div`
         background-color: #fff;
 
         padding: 2.5em 2em;
+        width: 92%;
 
         box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
 
+    }
+
+    .idTb {
+        padding-left: 2.5em;
+    }
+
+    .idTb1 {
+        padding-left: 2em;
     }
 
     table {
@@ -190,15 +201,15 @@ const ContainerConteudo = styled.div`
 
     th {
         height: 61.93px;
+
         text-align: left;
-        padding: 1em;
         color: #ffff;
-        font-weight: 800;
+        font-weight: 600;
+
+        padding: 1em;    
     }
 
     td {
-        font-size: 18px;
-
         text-align: left;
         height:  61.93px;
         padding: 1em;
@@ -212,6 +223,8 @@ const ContainerConteudo = styled.div`
         border: none;
         width: 31px;
         height: 31px;
+
+        padding: 0em;
     }
 
     thead {
