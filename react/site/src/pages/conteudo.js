@@ -15,7 +15,6 @@ export default function Conteudo() {
     const [chamada, setChamada] = useState('');
     const [curso, setCurso] = useState('');
     const [turma, setTurma] = useState('');
-    const []
 
     return (
         <ContainerConteudo>
