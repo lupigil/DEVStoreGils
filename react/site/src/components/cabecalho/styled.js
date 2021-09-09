@@ -18,12 +18,21 @@ const ContainerCabecalho = styled.div`
 
     font-family: 'Roboto', sans-serif;
 
-    .titulo {
-        padding: 1.3em 4em 1.3em 2.5em;
+    width: 55vh;
 
+    .titulo-livro {
+        display: flex;
+        flex-direction: row;
+
+        margin: 2.5em 5em 2.5em 4em;
+    }
+
+    .titulo {
         color: #EA10C7;
         font-size: 28px;
         font-weight: bold;
+
+        padding-left: 0.3em;
     }
 
     .titulo1 {
@@ -39,9 +48,28 @@ const ContainerCabecalho = styled.div`
     }
 
     .salas {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
         color: #fff;
 
-        padding: 1.3em 4.5em 1.3em 0em;
+        padding: 1.3em 0em 1.3em 0em;
+
+        width: 100%;
+    }
+
+    .geren {
+        font-size: 18px;
+
+        margin-left: 3em;
+    }
+
+    .setinha img {
+        width: 24px;
+        height: 24px;
+
+        margin-left: -3em;
     }
 
     .fundos {
@@ -51,6 +79,8 @@ const ContainerCabecalho = styled.div`
         background-color: #fff;
 
         width: 100%;
+
+        font-size: 18px;
     }
 
     .categorias {
