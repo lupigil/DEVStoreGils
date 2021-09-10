@@ -6,48 +6,36 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/matricula', async (req, resp) => {
+app.get('/produto', async (req, resp) => {
     try {
-        let r = await db.tb_matricula.findAll({ order: [[ 'id_matricula', 'desc' ]] });
+        let r = await db.tb_produto.findAll({ order: [[ 'id_produto', 'desc' ]] });
         resp.send(r);
     } catch (e) {
         resp.send({ erro: e.toString() })
     }
 })
 
-app.post('/matricula', async (req, resp) => {
+app.post('/produto', async (req, resp) => {
     try {
-        let { nome, chamada, curso, turma } = req.body;
+        let { produto, precoDe, categoria, precoPor, avaliacao, estoque, imagem } = req.body;
 
         if (!nome || nome == '')
             return resp.send({ erro: 'Campo Nome é obrigatório!' });
 
-        if (!chamada || chamada == '')
-            return resp.send({ erro: 'Campo Chamada é obrigatório!' });
 
-        if (!curso || curso == '')
-            return resp.send({ erro: 'Campo Curso é obrigatório!' });
-        
-        if (!turma || turma == '')
-            return resp.send({ erro: 'Campo Turma é obrigatório!' });
-
-
-        let obrigatorioTurma = await db.tb_matricula.findOne({ where: { nm_turma: turma } });
-
-        let obrigatorioChamada = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } });
-        if (obrigatorioChamada != null && obrigatorioTurma != null)
-            return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
-
-
-        if (Math.sign(chamada) === Math.sign(-1))
-            return resp.send({ erro: ' Números negativos não são permitidos' });
+        let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: produto } });
+        if (produtoRepetido != null)
+            return resp.send({ erro: 'Produto já existente' });
         
 
-        let r = await db.tb_matricula.create({
-            nm_aluno: nome,
-            nr_chamada: chamada,
-            nm_curso: curso,
-            nm_turma: turma
+        let r = await db.tb_produto.create({
+            nm_produto: nome,
+            vl_preco_de: precoDe,
+            ds_categoria: categoria,
+            vl_preco_por: precoPor,
+            vl_avaliacao: avaliacao,
+            qtd_estoque: estoque,
+            img_produto: imagem
         })
 
         resp.send(r);
@@ -57,33 +45,18 @@ app.post('/matricula', async (req, resp) => {
     }
 })
 
-app.put('/matricula/:id', async (req, resp) => {
+app.put('/produto/:id', async (req, resp) => {
     try {
-        let { nome, chamada, curso, turma } = req.body;
+        let { produto, precoDe, categoria, precoPor, avaliacao, estoque, imagem } = req.body;
         let { id } = req.params;
 
         if (!nome || nome == '')
         return resp.send({ erro: 'Campo Nome é obrigatório!' });
 
-        if (!chamada || chamada == '')
-            return resp.send({ erro: 'Campo Chamada é obrigatório!' });
 
-        if (!curso || curso == '')
-            return resp.send({ erro: 'Campo Curso é obrigatório!' });
-        
-        if (!turma || turma == '')
-            return resp.send({ erro: 'Campo Turma é obrigatório!' });
-
-
-        let obrigatorioTurma = await db.tb_matricula.findOne({ where: { nm_turma: turma } });
-
-        let obrigatorioChamada = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } });
-        if (obrigatorioChamada != null && obrigatorioTurma != null)
-            return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
-
-            
-        if (Math.sign(chamada) === Math.sign(-1))
-            return resp.send({ erro: ' Número negativos não são permitidos' });
+        let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: produto } });
+        if (produtoRepetido != null)
+            return resp.send({ erro: 'Produto já existente' });
 
 
         let r = await db.tb_matricula.update(
@@ -103,7 +76,7 @@ app.put('/matricula/:id', async (req, resp) => {
     }
 })
 
-app.delete('/matricula/:id', async (req, resp) => {
+app.delete('/produto/:id', async (req, resp) => {
     try {
         let { id } = req.params;
 

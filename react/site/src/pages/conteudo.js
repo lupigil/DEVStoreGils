@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import { ContainerConteudo, Traco } from './conteudo.styled.js'
-import { DevInput, DevButton } from '../components/outros/inputs/inputs'
+import { DevInput, DevButton, DevTextArea } from '../components/outros/inputs/inputs'
 
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -37,7 +37,7 @@ export default function Conteudo() {
     }
 
     async function inserir() {
-        if (idAlterando != 0) {
+        if (idAlterando !== 0) {
             let alter = await api.alterarAluno(idAlterando, aluno, chamada, curso, turma);
             
             if (alter.erro)
@@ -106,7 +106,7 @@ export default function Conteudo() {
 
     return (
         <ContainerConteudo>
-            <LoadingBar color='#986CDF' ref={loading} />
+            <LoadingBar color='#119FDC' ref={loading} />
             <ToastContainer />
             <div className="cabecalhoConteudo">
                 <div className="perfil">
@@ -125,51 +125,83 @@ export default function Conteudo() {
             <div className="cadastros">
                 <div className="titulo">
                     <Traco />
-                    <div className="novoAluno">{idAlterando === 0 ? 'Novo Aluno' : 'Alterando Aluno ' + idAlterando}</div>
+                    <div className="novoAluno">{idAlterando === 0 ? 'Novo Produto' : 'Alterando Produto ' + idAlterando}</div>
                 </div>
+
 
                 <div className="containerInput1">
                     <div className="box-input">
-                        <div className="label">Nome:</div>
+                        <div className="label1">Nome:</div>
                         <DevInput type="text" value={aluno} onChange={e => setAluno(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
-                        <div className="label">Curso:</div>
+                        <div className="label2">Preço DE:</div>
                         <DevInput type="text" value={curso} onChange={e => setCurso(e.target.value)} />
                     </div>
                 </div>
 
                 <div className="containerInput2">
                     <div className="box-input">
-                        <div className="label">Chamada:</div>
+                        <div className="label3">Categoria:</div>
                         <DevInput type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
-                        <div className="label">Turma:</div>
+                        <div className="label4">Preço POR:</div>
+                        <DevInput type="text" value={turma} onChange={e => setTurma(e.target.value)} />
+                    </div>    
+                </div> 
+
+                <div className="containerInput3">
+                    <div className="box-input2">
+                        <div className="label5">Avaliação:</div>
+                        <DevInput type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                    </div>
+                
+                    <div className="box-input1">
+                        <div className="label6">Estoque:</div>
                         <DevInput type="text" value={turma} onChange={e => setTurma(e.target.value)} />
                     </div>
+                </div>  
 
-                    <DevButton onClick={inserir} className="btn-cadastro">{idAlterando === 0 ? 'Cadastrar' : 'Alterar'}</DevButton>
-                </div>    
+                <div className="containerInput4">
+                    <div className="box-input">
+                        <div className="label7">Link Imagem:</div>
+                        <input className="input-link" type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                    </div>
+                </div>  
+
+                <div className="containerInput5">
+                    <div className="box-input">
+                        <div className="label8">Descrição:</div>
+                        <DevTextArea type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                    </div>
+                
+                    <DevButton onClick={inserir} className="btn-cadastro">{idAlterando === 0 
+                        ? 'Cadastrar' 
+                        : 'Alterar'}
+                    </DevButton>
+                </div>     
             </div>
+
 
             <div className="matriculados">
                 <div className="titulo">
                     <Traco />
-                    <div className="novoAluno">Alunos Matriculados</div>
+                    <div className="novoAluno">Produtos Cadastrados</div>
                 </div>
   
                 <table>
 
                     <thead>
                         <tr className="cabecalhoTb">
+                            <th className="espaço"></th>
                             <th className="idTb">ID</th>
-                            <th className="alunoTb">Nome</th>
-                            <th className="numeroTb">Chamada</th>
-                            <th className="turmaTb">Turma</th>
-                            <th className="cursoTb">Curso</th>
+                            <th className="alunoTb">Produto</th>
+                            <th className="numeroTb">Categoria</th>
+                            <th className="turmaTb">Preço</th>
+                            <th className="cursoTb">Estoque</th>
                             <th className="espaço"></th>
                             <th className="espaço"></th>
                         </tr>

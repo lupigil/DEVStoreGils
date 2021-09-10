@@ -4,8 +4,8 @@ export default function Cabecalho() {
     return (
         <ContainerMenu>
             <div className="titulo-livro">
-                <div className="livrinho"><img src="/assets/images/book.png" alt="" /></div>
-                <div className="titulo">Dev<span className="titulo1">School</span></div>
+                <div className="gitlab"><img src="/assets/images/gitlab.png" alt="" /></div>
+                <div className="titulo">Dev<span className="titulo1">Store</span></div>
             </div>
             <div className="faixa"></div>
             <div className="salas">
@@ -14,7 +14,7 @@ export default function Cabecalho() {
             </div>
             <div className="fundos">
                 <Barra />
-                <div className="categorias">Alunos</div>
+                <div className="categorias">Produtos</div>
             </div>
         </ContainerMenu>
     )

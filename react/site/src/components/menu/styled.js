@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 const Barra = styled.div `
-    background: linear-gradient(180deg, #DB21BD -10.17%, #DB21BD 115.25%);
+    background: #10EAEA;
     width: 3px;
-    height: 50px;
+    height: 60px;
     border-radius: 1em;
 `
 
@@ -30,11 +30,18 @@ const ContainerMenu = styled.div`
     }
 
     .titulo {
-        color: #EA10C7;
+        color: #10EAEA;
         font-size: 28px;
         font-weight: bold;
 
         padding-left: 0.3em;
+
+        margin-top: -0.1em;
+    }
+
+    .gitlab img {
+        width: 26px;
+        height: 26px;
     }
 
     .titulo1 {

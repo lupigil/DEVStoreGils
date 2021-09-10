@@ -13,7 +13,7 @@ const DevInput = styled.input `
 `
 
 const DevButton = styled.button `
-    background: #E911C6;
+    background: #119FDC;
 
     border-radius: 44px;
     border: none;
@@ -26,10 +26,27 @@ const DevButton = styled.button `
 
     cursor: pointer;
 
+    width: 106px;
+    height: 36px;
+
     &:hover {
-        background-color: #aa3997;
+        background-color: #1180ad;
         transition: 1s;
     }
 `
 
-export { DevInput, DevButton } 
+const DevTextArea = styled.textarea `
+    background: #FFFFFF;
+
+    border-radius: 5px;
+    border: 1px solid #A8A8A8;
+
+    resize: none;
+
+    cursor: text;
+
+    width: 537px;
+    height: 154px;
+`
+
+export { DevInput, DevButton, DevTextArea } 
