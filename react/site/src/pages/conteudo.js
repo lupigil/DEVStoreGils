@@ -3,6 +3,9 @@ import { useState, useRef, useEffect } from 'react';
 import { ContainerConteudo, Traco } from './conteudo.styled.js'
 import { DevInput, DevButton } from '../components/outros/inputs/inputs'
 
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 import LoadingBar from 'react-top-loading-bar'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -66,16 +69,27 @@ export default function Conteudo() {
     }
 
     async function remover(id) {
-        let resultado = window.confirm('Você realmente deseja excluir este registro ?') ;
-
-        if (resultado == true) {
-            let r = await api.removerAluno(id);
-                toast.dark('✔️ Aluno removido com sucesso');
-        } else {
-            toast.dark('✔️ Você cancelou o removimento');
-        }
-
-        listar();
+        confirmAlert({
+            title: 'Remover aluno',
+            message: `Tem certeza que deseja remover o aluno ${id} ?`,
+            buttons: [
+              {
+                label: 'Sim',
+                onClick: async () => {
+                    let r = await api.removerAluno(id);
+                    if (r.erro)
+                        toast.error(`${r.erro}`);
+                    else {
+                        toast.dark('✔️ Aluno removido!')
+                        listar();
+                    }
+                }
+              },
+              {
+                label: 'Não'
+              }
+            ]
+        });
     }
 
     async function alterando(item) {
@@ -129,7 +143,7 @@ export default function Conteudo() {
                 <div className="containerInput2">
                     <div className="box-input">
                         <div className="label">Chamada:</div>
-                        <DevInput type="number" value={chamada} onChange={e => setChamada(e.target.value)} />
+                        <DevInput type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
@@ -138,7 +152,7 @@ export default function Conteudo() {
                     </div>
 
                     <DevButton onClick={inserir} className="btn-cadastro">{idAlterando === 0 ? 'Cadastrar' : 'Alterar'}</DevButton>
-                </div>
+                </div>    
             </div>
 
             <div className="matriculados">

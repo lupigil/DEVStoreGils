@@ -40,7 +40,7 @@ app.post('/matricula', async (req, resp) => {
 
 
         if (Math.sign(chamada) === Math.sign(-1))
-            return resp.send({ erro: ' Número negativos não são permitidos' });
+            return resp.send({ erro: ' Números negativos não são permitidos' });
         
 
         let r = await db.tb_matricula.create({
