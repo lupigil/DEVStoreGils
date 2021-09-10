@@ -164,7 +164,7 @@ const ContainerConteudo = styled.div`
         flex-direction: row;
         justify-content: space-evenly;
 
-        width: 100vh;
+        width: 97%;
     }
 
     .btn-cadastro {

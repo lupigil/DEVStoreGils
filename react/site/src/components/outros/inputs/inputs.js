@@ -22,6 +22,7 @@ const DevButton = styled.button `
     font-size: 14px;
 
     padding: 10px 22px;
+    margin-left: 5em;
 
     cursor: pointer;
 
