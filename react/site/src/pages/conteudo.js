@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { ContainerConteudo, Traco } from './conteudo.styled.js'
 import { DevInput, DevButton } from '../components/outros/inputs/inputs'
+
+import LoadingBar from 'react-top-loading-bar'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import Api from '../service/api.js';
@@ -17,27 +22,33 @@ export default function Conteudo() {
     const [turma, setTurma] = useState('');
     const [idAlterando, setidAlterando] = useState(0);
 
+    const loading = useRef(null);
+
     async function listar() {
+        loading.current.continuousStart();
+
         let r = await api.listarCadastros();
         setAlunos(r);
+
+        loading.current.complete();
     }
 
     async function inserir() {
-        if (idAlterando == 0) {
-            let r = await api.inserirAluno(aluno, chamada, curso, turma);
+        if (idAlterando != 0) {
+            let alter = await api.alterarAluno(idAlterando, aluno, chamada, curso, turma);
             
-            if (r.erro)
-                alert(r.erro)
+            if (alter.erro)
+                toast.error(`❌ ${alter.erro}`)
             else
-                alert('aluno inserido');
+                toast.dark('✔️ Aluno alterado com sucesso');
 
         } else {
-            let r = await api.alterarAluno(idAlterando, aluno, chamada, curso, turma);
+            let inse = await api.inserirAluno(aluno, chamada, curso, turma);
             
-            if (r.erro)
-                alert(r.erro)
+            if (inse.erro)
+                toast.error(`❌ ${inse.erro}`)
             else
-                alert('aluno alterado');
+                toast.dark('✔️ Aluno inserido com sucesso');
         }
 
         limparCampos();
@@ -54,7 +65,7 @@ export default function Conteudo() {
 
     async function remover(id) {
         let r = await api.removerAluno(id);
-        alert('aluno removido');
+            toast.dark('✔️ Aluno removido com sucesso');
 
         listar();
     }
@@ -73,6 +84,8 @@ export default function Conteudo() {
 
     return (
         <ContainerConteudo>
+            <LoadingBar color='#986CDF' ref={loading} />
+            <ToastContainer />
             <div className="cabecalhoConteudo">
                 <div className="perfil">
                     <div className="imgPerfil"><img src="/assets/images/usuario.jpg" alt="" /></div>
@@ -82,7 +95,7 @@ export default function Conteudo() {
                 <div className="msgPerfil">Olá, <b>Gilson Torres</b></div>
 
                 <div className="comandos">
-                    <div className="atualizar"> <button> <img src="/assets/images/refresh.png" alt="" /> </button> </div>
+                    <div className="atualizar" onClick={listar}> <button> <img src="/assets/images/refresh.png" alt="" /> </button> </div>
                     <div className="logout"> <button> <img src="/assets/images/log-out.png" alt="" /> </button> </div>
                 </div>
             </div>
@@ -146,6 +159,7 @@ export default function Conteudo() {
 
                             <tr className={i % 2 === 0 ? "linha-alternada" : ""}>
                                 <td className="idTb1">{item.id_matricula}</td>
+                                
                                 <td title={item.nm_aluno}>
                                     {item.nm_aluno != null && item.nm_aluno.lenght >= 25
                                         ? item.nm_aluno.substr(0, 25) + '...'

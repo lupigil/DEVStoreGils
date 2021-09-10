@@ -28,7 +28,8 @@ app.post('/matricula', async (req, resp) => {
 
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: e.toString() })
+        resp.send({ erro: 'Deu erro' });
+        console.log(e.toString());
     }
 })
 
