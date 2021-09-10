@@ -129,7 +129,7 @@ export default function Conteudo() {
                 <div className="containerInput2">
                     <div className="box-input">
                         <div className="label">Chamada:</div>
-                        <DevInput type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                        <DevInput type="number" value={chamada} onChange={e => setChamada(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
