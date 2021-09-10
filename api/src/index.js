@@ -17,25 +17,28 @@ app.get('/produto', async (req, resp) => {
 
 app.post('/produto', async (req, resp) => {
     try {
-        let { produto, precoDe, categoria, precoPor, avaliacao, estoque, imagem } = req.body;
+        let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
         if (!nome || nome == '')
             return resp.send({ erro: 'Campo Nome é obrigatório!' });
 
 
-        let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: produto } });
+        let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
             return resp.send({ erro: 'Produto já existente' });
         
 
         let r = await db.tb_produto.create({
             nm_produto: nome,
-            vl_preco_de: precoDe,
             ds_categoria: categoria,
+            vl_preco_de: precoDe,
             vl_preco_por: precoPor,
             vl_avaliacao: avaliacao,
+            ds_produto: descricao,
             qtd_estoque: estoque,
-            img_produto: imagem
+            img_produto: imagem,
+            bt_ativo: true,
+            dt_inclusao: new Date()
         })
 
         resp.send(r);
@@ -59,15 +62,17 @@ app.put('/produto/:id', async (req, resp) => {
             return resp.send({ erro: 'Produto já existente' });
 
 
-        let r = await db.tb_matricula.update(
-            {
-                nm_aluno: nome,
-                nr_chamada: chamada,
-                nm_curso: curso,
-                nm_turma: turma
+            let r = await db.tb_produto.create({
+                nm_produto: nome,
+                vl_preco_de: precoDe,
+                ds_categoria: categoria,
+                vl_preco_por: precoPor,
+                vl_avaliacao: avaliacao,
+                qtd_estoque: estoque,
+                img_produto: imagem
             },
             {
-                where: { id_matricula: id }
+                where: { id_produto: id }
             }
         )
         resp.sendStatus(200);
@@ -80,7 +85,7 @@ app.delete('/produto/:id', async (req, resp) => {
     try {
         let { id } = req.params;
 
-        let r = await db.tb_matricula.destroy({ where: { id_matricula: id } })
+        let r = await db.tb_produto.destroy({ where: { id_produto: id } })
         resp.sendStatus(200);
     } catch (e) {
         resp.send({ erro: e.toString() })
