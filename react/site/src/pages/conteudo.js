@@ -64,8 +64,14 @@ export default function Conteudo() {
     }
 
     async function remover(id) {
-        let r = await api.removerAluno(id);
-            toast.dark('✔️ Aluno removido com sucesso');
+        let resultado = window.confirm('Você realmente deseja excluir este registro ?') ;
+
+        if (resultado == true) {
+            let r = await api.removerAluno(id);
+                toast.dark('✔️ Aluno removido com sucesso');
+        } else {
+            toast.dark('✔️ Você cancelou o removimento');
+        }
 
         listar();
     }

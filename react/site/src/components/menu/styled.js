@@ -8,17 +8,16 @@ const Barra = styled.div `
 `
 
 
-const ContainerCabecalho = styled.div`
+const ContainerMenu = styled.div`
     display: flex;
     flex-direction: column;
 
-    align-items: center;
     background-color: #2B3031;
-    border-radius: 3px;
-
+    
     font-family: 'Roboto', sans-serif;
 
     width: 55vh;
+    height: 100vh;
 
     position: sticky;
     top: 0px;
@@ -94,4 +93,4 @@ const ContainerCabecalho = styled.div`
     }
 `
 
-export { ContainerCabecalho, Barra }
+export { ContainerMenu, Barra }

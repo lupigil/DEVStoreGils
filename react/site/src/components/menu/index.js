@@ -1,8 +1,8 @@
-import { ContainerCabecalho, Barra } from './styled.js'
+import { ContainerMenu, Barra } from './styled.js'
 
 export default function Cabecalho() {
     return (
-        <ContainerCabecalho>
+        <ContainerMenu>
             <div className="titulo-livro">
                 <div className="livrinho"><img src="/assets/images/book.png" alt="" /></div>
                 <div className="titulo">Dev<span className="titulo1">School</span></div>
@@ -16,6 +16,6 @@ export default function Cabecalho() {
                 <Barra />
                 <div className="categorias">Alunos</div>
             </div>
-        </ContainerCabecalho>
+        </ContainerMenu>
     )
 }

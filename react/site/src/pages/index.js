@@ -1,12 +1,12 @@
 import { Container } from './styled.js'
-import Cabecalho from '../components/cabecalho/index.js'
+import Menu from '../components/menu/index.js'
 import Conteudo from './conteudo.js'
 
 
 export default function devMonk() {
     return (
         <Container>
-            <Cabecalho />
+            <Menu />
             <Conteudo />
         </Container>
     )
