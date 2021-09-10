@@ -39,16 +39,18 @@ export default function Conteudo() {
             
             if (alter.erro)
                 toast.error(`❌ ${alter.erro}`)
-            else
+            else 
                 toast.dark('✔️ Aluno alterado com sucesso');
 
         } else {
             let inse = await api.inserirAluno(aluno, chamada, curso, turma);
             
-            if (inse.erro)
+            if (inse.erro) {
                 toast.error(`❌ ${inse.erro}`)
-            else
+            }
+            else {
                 toast.dark('✔️ Aluno inserido com sucesso');
+            }
         }
 
         limparCampos();
@@ -167,9 +169,8 @@ export default function Conteudo() {
                                 <td className="idTb1">{item.id_matricula}</td>
                                 
                                 <td title={item.nm_aluno}>
-                                    {item.nm_aluno != null && item.nm_aluno.lenght >= 25
-                                        ? item.nm_aluno.substr(0, 25) + '...'
-                                        : item.nm_aluno}
+                                    {item.nm_aluno != null && item.nm_aluno.length >= 25
+                                        ? item.nm_aluno.substr(0, 25) + '...'  : item.nm_aluno}       
                                 </td>
                                 <td>{item.nr_chamada}</td>
                                 <td>{item.nm_turma}</td>

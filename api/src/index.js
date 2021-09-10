@@ -19,6 +19,17 @@ app.post('/matricula', async (req, resp) => {
     try {
         let { nome, chamada, curso, turma } = req.body;
 
+        let obrigatorioAluno = await db.tb_matricula.findOne({ where: { nm_aluno: nome } });
+        if (obrigatorioAluno == '')
+            return resp.send({ erro: 'Campo Nome é obrigatório!' });
+
+            let obrigatorioTurma = await db.tb_matricula.findOne({ where: { nm_turma: turma } });
+
+            let obrigatorioChamada = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } });
+            if (obrigatorioChamada != null && obrigatorioTurma != null)
+                return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
+        
+
         let r = await db.tb_matricula.create({
             nm_aluno: nome,
             nr_chamada: chamada,
@@ -37,6 +48,12 @@ app.put('/matricula/:id', async (req, resp) => {
     try {
         let { nome, chamada, curso, turma } = req.body;
         let { id } = req.params;
+
+        let obrigatorioTurma = await db.tb_matricula.findOne({ where: { nm_turma: turma } });
+
+        let obrigatorioChamada = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } });
+        if (obrigatorioChamada != null && obrigatorioTurma != null)
+            return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
 
         let r = await db.tb_matricula.update(
             {
