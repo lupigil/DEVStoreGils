@@ -19,6 +19,10 @@ app.post('/produto', async (req, resp) => {
     try {
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
+        if (nome == '' || categoria == '' || precoDe == '' || precoPor == '' || avaliacao == '' || descricao == '' 
+            || estoque == '' || imagem == '')
+                return resp.send({ erro: ' Preencha todos os campos!' })
+
         if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4 || imagem.length <= 4)
             return resp.send({ erro: ' Insira mais que 4 caracteres!' })
             
@@ -52,16 +56,13 @@ app.put('/produto/:id', async (req, resp) => {
         let { id } = req.params;
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
-        
-        if (precoDe <= 0|| precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
-            return resp.send({ erro: ' Somente números positivos!' });
+    
+        if (nome == '' || categoria == '' || precoDe == '' || precoPor == '' || avaliacao == '' || descricao == '' || 
+            estoque == '' || imagem == '')
+                return resp.send({ erro: ' Preencha todos os campos!' })
 
-        if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4)
+        if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4 || imagem.length <= 4)
             return resp.send({ erro: ' Insira mais que 4 caracteres!' })
-
-        let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
-        if (produtoRepetido != null)
-            return resp.send({ erro: 'Produto já existente' });
 
 
         let r = await db.tb_produto.update({
