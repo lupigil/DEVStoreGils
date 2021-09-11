@@ -55,6 +55,7 @@ export default function Conteudo() {
             
             if (inse.erro) {
                 toast.error(`❌ ${inse.erro}`)
+                limparCampos();
             }
             else {
                 toast.dark('✔️ Produto inserido com sucesso');
@@ -100,6 +101,19 @@ export default function Conteudo() {
             ]
         });
     }
+
+    async function onlyNumber(evt) {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode( key );
+        var regex = /^[0-9.]+$/;
+        if( !regex.test(key) ) {
+           theEvent.returnValue = false;
+           if(theEvent.preventDefault) theEvent.preventDefault();
+                toast.error(`❌ Somente números são permitidos!!`)
+        }
+     }
+
 
     async function alterando(item) {
         setImagem(item.img_produto)
@@ -150,7 +164,7 @@ export default function Conteudo() {
                 
                     <div className="box-input1">
                         <div className="label2">Preço DE:</div>
-                        <DevInput type="text" value={precoDe} onChange={e => setPrecoDe(e.target.value)} />
+                        <DevInput type="text" onKeyPress={onlyNumber} value={precoDe} onChange={e => setPrecoDe(e.target.value)} />
                     </div>
                 </div>
 
@@ -162,19 +176,19 @@ export default function Conteudo() {
                 
                     <div className="box-input1">
                         <div className="label4">Preço POR:</div>
-                        <DevInput type="text" value={precoPor} onChange={e => setPrecoPor(e.target.value)} />
+                        <DevInput type="text" onKeyPress={onlyNumber} value={precoPor} onChange={e => setPrecoPor(e.target.value)} />
                     </div>    
                 </div> 
 
                 <div className="containerInput3">
                     <div className="box-input2">
                         <div className="label5">Avaliação:</div>
-                        <DevInput type="text" value={avaliacao} onChange={e => setAvaliacao(e.target.value)} />
+                        <DevInput type="text" onKeyPress={onlyNumber} value={avaliacao} onChange={e => setAvaliacao(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
                         <div className="label6">Estoque:</div>
-                        <DevInput type="text" value={estoque} onChange={e => setEstoque(e.target.value)} />
+                        <DevInput type="text" onKeyPress={onlyNumber} value={estoque} onChange={e => setEstoque(e.target.value)} />
                     </div>
                 </div>  
 

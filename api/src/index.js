@@ -19,12 +19,9 @@ app.post('/produto', async (req, resp) => {
     try {
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
-        if (precoDe <= 0|| precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
-            return resp.send({ erro: ' Somente números positivos!' });
-
-        if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4)
+        if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4 || imagem.length <= 4)
             return resp.send({ erro: ' Insira mais que 4 caracteres!' })
-
+            
         let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
             return resp.send({ erro: 'Produto já existente' });
@@ -56,54 +53,33 @@ app.put('/produto/:id', async (req, resp) => {
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
         
-        if (!nome || nome == '')
-        return resp.send({ erro: 'Campo Nome é obrigatório!' });
+        if (precoDe <= 0|| precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
+            return resp.send({ erro: ' Somente números positivos!' });
 
-        if (!categoria || categoria == '')
-            return resp.send({ erro: 'Campo Categoria é obrigatório!' });
+        if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4)
+            return resp.send({ erro: ' Insira mais que 4 caracteres!' })
 
-        if (!precoDe || precoDe == '')
-            return resp.send({ erro: 'Campo Preço DE é obrigatório!' });
-
-        if (!precoPor || precoPor == '')
-            return resp.send({ erro: 'Campo Preço POR é obrigatório!' });
-
-        if (!avaliacao || avaliacao == '')
-            return resp.send({ erro: 'Campo Avaliação é obrigatório!' });
-
-        if (!descricao || descricao == '')
-        return resp.send({ erro: 'Campo Descrição é obrigatório!' });
-        
-        if (!estoque || estoque == '')
-            return resp.send({ erro: 'Campo Estoque é obrigatório!' });
-
-        if (!imagem || imagem == '')
-            return resp.send({ erro: 'Campo Link Imagem é obrigatório!' });
-        
-        
         let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
             return resp.send({ erro: 'Produto já existente' });
 
-        
 
-
-            let r = await db.tb_produto.update({
-                nm_produto: nome,
-                ds_categoria: categoria,
-                vl_preco_de: precoDe,
-                vl_preco_por: precoPor,
-                vl_avaliacao: avaliacao,
-                ds_produto: descricao,
-                qtd_estoque: estoque,
-                img_produto: imagem,
-                bt_ativo: true,
-                dt_inclusao: new Date()
-            },
-            {
-                where: { id_produto: id }
-            }
-        )
+        let r = await db.tb_produto.update({
+            nm_produto: nome,
+            ds_categoria: categoria,
+            vl_preco_de: precoDe,
+            vl_preco_por: precoPor,
+            vl_avaliacao: avaliacao,
+            ds_produto: descricao,
+            qtd_estoque: estoque,
+            img_produto: imagem,
+            bt_ativo: true,
+            dt_inclusao: new Date()
+        },
+        {
+            where: { id_produto: id }
+        }
+        )   
         resp.sendStatus(200);
     } catch (e) {
         resp.send({ erro: e.toString() })
