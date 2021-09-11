@@ -18,11 +18,15 @@ const api = new Api();
 
 export default function Conteudo() {
 
-    const [alunos, setAlunos] = useState([]);
-    const [aluno, setAluno] = useState('');
-    const [chamada, setChamada] = useState('');
-    const [curso, setCurso] = useState('');
-    const [turma, setTurma] = useState('');
+    const [produtos, setProdutos] = useState([]);
+    const [imagem, setImagem] = useState('');
+    const [produto, setProduto] = useState('');
+    const [categoria, setCategoria] = useState('');
+    const [preco, setPreco] = useState('');
+    const [estoque, setEstoque] = useState('');
+    const [precoPor, setPrecoPor] = useState('');
+    const [avaliacao, setAvaliacao] = useState('');
+    const [descricao, setDescricao] = useState('');
     const [idAlterando, setidAlterando] = useState(0);
 
     const loading = useRef(null);
@@ -31,22 +35,23 @@ export default function Conteudo() {
         loading.current.continuousStart();
 
         let r = await api.listarCadastros();
-        setAlunos(r);
+            setProdutos(r);
 
         loading.current.complete();
     }
 
     async function inserir() {
         if (idAlterando !== 0) {
-            let alter = await api.alterarAluno(idAlterando, aluno, chamada, curso, turma);
+            let alter = await api.alterarProduto(idAlterando, produto, categoria, preco, estoque);
             
             if (alter.erro)
                 toast.error(`❌ ${alter.erro}`)
             else 
                 toast.dark('✔️ Aluno alterado com sucesso');
+                
 
         } else {
-            let inse = await api.inserirAluno(aluno, chamada, curso, turma);
+            let inse = await api.inserirProduto(produto, categoria, preco, estoque);
             
             if (inse.erro) {
                 toast.error(`❌ ${inse.erro}`)
@@ -54,6 +59,7 @@ export default function Conteudo() {
             else {
                 toast.dark('✔️ Aluno inserido com sucesso');
             }
+            console.log(inse)
         }
 
         limparCampos();
@@ -61,10 +67,14 @@ export default function Conteudo() {
     }
 
     function limparCampos() {
-        setAluno('');
-        setChamada('');
-        setCurso('');
-        setTurma('');
+        setImagem('');
+        setProduto('');
+        setCategoria('');
+        setPreco('');
+        setEstoque('');
+        setPrecoPor('');
+        setAvaliacao('');
+        setDescricao('');
         setidAlterando(0);
     }
 
@@ -76,7 +86,7 @@ export default function Conteudo() {
               {
                 label: 'Sim',
                 onClick: async () => {
-                    let r = await api.removerAluno(id);
+                    let r = await api.removerProduto(id);
                     if (r.erro)
                         toast.error(`${r.erro}`);
                     else {
@@ -93,11 +103,14 @@ export default function Conteudo() {
     }
 
     async function alterando(item) {
-        setAluno(item.nm_aluno);
-        setChamada(item.nr_chamada);
-        setCurso(item.nm_curso);
-        setTurma(item.nm_turma);
-        setidAlterando(item.id_matricula);
+        setProduto(item.nm_produto);
+        setCategoria(item.ds_categorias);
+        setPreco(item.vl_preco_de);
+        setEstoque(item.qtd_estoque);
+        setPrecoPor(item.vl_preco_por);
+        setAvaliacao(item.vl_avaliacao);
+        setDescricao(item.ds_produto);
+        setidAlterando(item.id_produto);
     }
 
     useEffect(() => {
@@ -111,7 +124,7 @@ export default function Conteudo() {
             <div className="cabecalhoConteudo">
                 <div className="perfil">
                     <div className="imgPerfil"><img src="/assets/images/usuario.jpg" alt="" /></div>
-                    <div class="notificacao">3</div>    
+                    <div className="notificacao">3</div>    
                 </div>
 
                 <div className="msgPerfil">Olá, <b>Gilson Torres</b></div>
@@ -132,50 +145,50 @@ export default function Conteudo() {
                 <div className="containerInput1">
                     <div className="box-input">
                         <div className="label1">Nome:</div>
-                        <DevInput type="text" value={aluno} onChange={e => setAluno(e.target.value)} />
+                        <DevInput type="text" value={produto} onChange={e => setProduto(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
                         <div className="label2">Preço DE:</div>
-                        <DevInput type="text" value={curso} onChange={e => setCurso(e.target.value)} />
+                        <DevInput type="text" value={preco} onChange={e => setPreco(e.target.value)} />
                     </div>
                 </div>
 
                 <div className="containerInput2">
                     <div className="box-input">
                         <div className="label3">Categoria:</div>
-                        <DevInput type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                        <DevInput type="text" value={categoria} onChange={e => setCategoria(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
                         <div className="label4">Preço POR:</div>
-                        <DevInput type="text" value={turma} onChange={e => setTurma(e.target.value)} />
+                        <DevInput type="text" value={precoPor} onChange={e => setPrecoPor(e.target.value)} />
                     </div>    
                 </div> 
 
                 <div className="containerInput3">
                     <div className="box-input2">
                         <div className="label5">Avaliação:</div>
-                        <DevInput type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                        <DevInput type="text" value={avaliacao} onChange={e => setAvaliacao(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
                         <div className="label6">Estoque:</div>
-                        <DevInput type="text" value={turma} onChange={e => setTurma(e.target.value)} />
+                        <DevInput type="text" value={estoque} onChange={e => setEstoque(e.target.value)} />
                     </div>
                 </div>  
 
                 <div className="containerInput4">
                     <div className="box-input">
                         <div className="label7">Link Imagem:</div>
-                        <input className="input-link" type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                        <input className="input-link" type="text" value={imagem} onChange={e => setImagem(e.target.value)} />
                     </div>
                 </div>  
 
                 <div className="containerInput5">
                     <div className="box-input">
                         <div className="label8">Descrição:</div>
-                        <DevTextArea type="text" value={chamada} onChange={e => setChamada(e.target.value)} />
+                        <DevTextArea type="text" value={descricao} onChange={e => setDescricao(e.target.value)} />
                     </div>
                 
                     <DevButton onClick={inserir} className="btn-cadastro">{idAlterando === 0 
@@ -196,7 +209,7 @@ export default function Conteudo() {
 
                     <thead>
                         <tr className="cabecalhoTb">
-                            <th className="espaço"></th>
+                            <th className="imagem"></th>
                             <th className="idTb">ID</th>
                             <th className="alunoTb">Produto</th>
                             <th className="numeroTb">Categoria</th>
@@ -209,20 +222,23 @@ export default function Conteudo() {
 
                     <tbody>
 
-                        {alunos.map((item, i) => 
+                        {produtos.map((item, i) => 
 
                             <tr className={i % 2 === 0 ? "linha-alternada" : ""}>
-                                <td className="idTb1">{item.id_matricula}</td>
-                                
-                                <td title={item.nm_aluno}>
-                                    {item.nm_aluno != null && item.nm_aluno.length >= 25
-                                        ? item.nm_aluno.substr(0, 25) + '...'  : item.nm_aluno}       
+                                <td title={item.img_produto}>
+                                    <img src={item.img_produto} alt="" style={{ width: '40px', height: '35px' }} /> 
                                 </td>
-                                <td>{item.nr_chamada}</td>
-                                <td>{item.nm_turma}</td>
-                                <td>{item.nm_curso}</td>
+                                <td className="idTb1">{item.id_produto}</td>
+                                
+                                <td title={item.nm_produto}>
+                                    {item.nm_produto != null && item.nm_produto.length >= 25
+                                        ? item.nm_produto.substr(0, 25) + '...'  : item.nm_produto}       
+                                </td>
+                                <td>{item.ds_categoria}</td>
+                                <td>{item.vl_preco_de}</td>
+                                <td>{item.qtd_estoque}</td>
                                 <td className="botao-visivel"> <button onClick={() => alterando(item) } > <img src="/assets/images/edit.png" alt="" /> </button> </td>
-                                <td className="botao-visivel"> <button onClick={() => remover(item.id_matricula) } > <img src="/assets/images/trash.png" alt="" /> </button> </td>
+                                <td className="botao-visivel"> <button onClick={() => remover(item.id_produto) } > <img src="/assets/images/trash.png" alt="" /> </button> </td>
                             </tr>
 
                         )}

@@ -15,10 +15,6 @@ export default function initModels(sequelize) {
 
 
   return {
-    tb_chat,
-    tb_matricula,
-    tb_produto,
-    tb_sala,
-    tb_usuario,
+    tb_produto
   };
 }

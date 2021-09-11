@@ -19,14 +19,14 @@ app.post('/produto', async (req, resp) => {
     try {
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
-        if (!nome || nome == '')
-            return resp.send({ erro: 'Campo Nome é obrigatório!' });
+
+        
 
 
         let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
             return resp.send({ erro: 'Produto já existente' });
-        
+
 
         let r = await db.tb_produto.create({
             nm_produto: nome,
@@ -41,6 +41,8 @@ app.post('/produto', async (req, resp) => {
             dt_inclusao: new Date()
         })
 
+        console.log(r)
+
         resp.send(r);
     } catch (e) {
         resp.send({ erro: 'Deu erro' });
@@ -50,11 +52,10 @@ app.post('/produto', async (req, resp) => {
 
 app.put('/produto/:id', async (req, resp) => {
     try {
-        let { produto, precoDe, categoria, precoPor, avaliacao, estoque, imagem } = req.body;
+        let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
         let { id } = req.params;
 
-        if (!nome || nome == '')
-        return resp.send({ erro: 'Campo Nome é obrigatório!' });
+        
 
 
         let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: produto } });
@@ -62,14 +63,17 @@ app.put('/produto/:id', async (req, resp) => {
             return resp.send({ erro: 'Produto já existente' });
 
 
-            let r = await db.tb_produto.create({
+            let r = await db.tb_produto.update({
                 nm_produto: nome,
-                vl_preco_de: precoDe,
                 ds_categoria: categoria,
+                vl_preco_de: precoDe,
                 vl_preco_por: precoPor,
                 vl_avaliacao: avaliacao,
+                ds_produto: descricao,
                 qtd_estoque: estoque,
-                img_produto: imagem
+                img_produto: imagem,
+                bt_ativo: true,
+                dt_inclusao: new Date()
             },
             {
                 where: { id_produto: id }
