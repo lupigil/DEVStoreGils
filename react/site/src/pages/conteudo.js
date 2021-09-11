@@ -22,7 +22,7 @@ export default function Conteudo() {
     const [imagem, setImagem] = useState('');
     const [produto, setProduto] = useState('');
     const [categoria, setCategoria] = useState('');
-    const [preco, setPreco] = useState('');
+    const [precoDe, setPrecoDe] = useState('');
     const [estoque, setEstoque] = useState('');
     const [precoPor, setPrecoPor] = useState('');
     const [avaliacao, setAvaliacao] = useState('');
@@ -42,24 +42,23 @@ export default function Conteudo() {
 
     async function inserir() {
         if (idAlterando !== 0) {
-            let alter = await api.alterarProduto(idAlterando, produto, categoria, preco, estoque);
+            let alter = await api.alterarProduto(idAlterando, produto, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem);
             
             if (alter.erro)
                 toast.error(`❌ ${alter.erro}`)
             else 
-                toast.dark('✔️ Aluno alterado com sucesso');
+                toast.dark('✔️ Produto alterado com sucesso');
                 
 
         } else {
-            let inse = await api.inserirProduto(produto, categoria, preco, estoque);
+            let inse = await api.inserirProduto(produto, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem);
             
             if (inse.erro) {
                 toast.error(`❌ ${inse.erro}`)
             }
             else {
-                toast.dark('✔️ Aluno inserido com sucesso');
+                toast.dark('✔️ Produto inserido com sucesso');
             }
-            console.log(inse)
         }
 
         limparCampos();
@@ -70,7 +69,7 @@ export default function Conteudo() {
         setImagem('');
         setProduto('');
         setCategoria('');
-        setPreco('');
+        setPrecoDe('');
         setEstoque('');
         setPrecoPor('');
         setAvaliacao('');
@@ -80,8 +79,8 @@ export default function Conteudo() {
 
     async function remover(id) {
         confirmAlert({
-            title: 'Remover aluno',
-            message: `Tem certeza que deseja remover o aluno ${id} ?`,
+            title: 'Remover produto',
+            message: `Tem certeza que deseja remover o produto ${id} ?`,
             buttons: [
               {
                 label: 'Sim',
@@ -90,7 +89,7 @@ export default function Conteudo() {
                     if (r.erro)
                         toast.error(`${r.erro}`);
                     else {
-                        toast.dark('✔️ Aluno removido!')
+                        toast.dark('✔️ Produto removido!')
                         listar();
                     }
                 }
@@ -103,9 +102,10 @@ export default function Conteudo() {
     }
 
     async function alterando(item) {
+        setImagem(item.img_produto)
         setProduto(item.nm_produto);
-        setCategoria(item.ds_categorias);
-        setPreco(item.vl_preco_de);
+        setCategoria(item.ds_categoria);
+        setPrecoDe(item.vl_preco_de);
         setEstoque(item.qtd_estoque);
         setPrecoPor(item.vl_preco_por);
         setAvaliacao(item.vl_avaliacao);
@@ -150,7 +150,7 @@ export default function Conteudo() {
                 
                     <div className="box-input1">
                         <div className="label2">Preço DE:</div>
-                        <DevInput type="text" value={preco} onChange={e => setPreco(e.target.value)} />
+                        <DevInput type="text" value={precoDe} onChange={e => setPrecoDe(e.target.value)} />
                     </div>
                 </div>
 

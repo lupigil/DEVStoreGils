@@ -20,12 +20,38 @@ app.post('/produto', async (req, resp) => {
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
 
+        if (!nome || nome == '')
+            return resp.send({ erro: 'Campo Nome é obrigatório!' });
+
+        if (!categoria || categoria == '')
+            return resp.send({ erro: 'Campo Categoria é obrigatório!' });
+
+        if (!precoDe || precoDe == '')
+            return resp.send({ erro: 'Campo Preço DE é obrigatório!' });
+
+        if (!precoPor || precoPor == '')
+            return resp.send({ erro: 'Campo Preço POR é obrigatório!' });
+
+        if (!avaliacao || avaliacao == '')
+            return resp.send({ erro: 'Campo Avaliação é obrigatório!' });
+
+        if (!descricao || descricao == '')
+        return resp.send({ erro: 'Campo Descrição é obrigatório!' });
         
+        if (!estoque || estoque == '')
+            return resp.send({ erro: 'Campo Estoque é obrigatório!' });
+
+        if (!imagem || imagem == '')
+            return resp.send({ erro: 'Campo Link Imagem é obrigatório!' });
 
 
         let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
             return resp.send({ erro: 'Produto já existente' });
+
+        if (precoDe !== Number || precoPor !== Number || avaliacao !== Number || estoque !== Number)
+            return resp.send({ erro: ' Somente números são permitidos!' });
+
 
 
         let r = await db.tb_produto.create({
@@ -41,8 +67,6 @@ app.post('/produto', async (req, resp) => {
             dt_inclusao: new Date()
         })
 
-        console.log(r)
-
         resp.send(r);
     } catch (e) {
         resp.send({ erro: 'Deu erro' });
@@ -52,15 +76,40 @@ app.post('/produto', async (req, resp) => {
 
 app.put('/produto/:id', async (req, resp) => {
     try {
-        let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
         let { id } = req.params;
+        let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
         
+        if (!nome || nome == '')
+        return resp.send({ erro: 'Campo Nome é obrigatório!' });
 
+        if (!categoria || categoria == '')
+            return resp.send({ erro: 'Campo Categoria é obrigatório!' });
 
-        let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: produto } });
+        if (!precoDe || precoDe == '')
+            return resp.send({ erro: 'Campo Preço DE é obrigatório!' });
+
+        if (!precoPor || precoPor == '')
+            return resp.send({ erro: 'Campo Preço POR é obrigatório!' });
+
+        if (!avaliacao || avaliacao == '')
+            return resp.send({ erro: 'Campo Avaliação é obrigatório!' });
+
+        if (!descricao || descricao == '')
+        return resp.send({ erro: 'Campo Descrição é obrigatório!' });
+        
+        if (!estoque || estoque == '')
+            return resp.send({ erro: 'Campo Estoque é obrigatório!' });
+
+        if (!imagem || imagem == '')
+            return resp.send({ erro: 'Campo Link Imagem é obrigatório!' });
+        
+        
+        let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
             return resp.send({ erro: 'Produto já existente' });
+
+        
 
 
             let r = await db.tb_produto.update({
