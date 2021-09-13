@@ -29,13 +29,23 @@ app.post('/produto', async (req, resp) => {
         if (precoDe <= 0 || precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
             return resp.send({ erro: ' Insira apenas números positivos!' })
         
-        if (Math.sign(precoDe)   !== Math.sign(1) || Math.sign(precoPor) !== Math.sign(1) || 
-            Math.sign(avaliacao) !== Math.sign(1) || Math.sign(estoque)  !== Math.sign(1))
-                return resp.send({ erro: ' Caracteres não são permitidos!' })
+
+        if (isNaN(precoDe) === true)
+            return resp.send({ erro: ' Campo Preço De só recebe números!' })
+
+        if (isNaN(precoPor) === true)
+            return resp.send({ erro: ' Campo Preço Por só recebe números!' })
+
+        if (isNaN(avaliacao) === true)
+            return resp.send({ erro: ' Campo Avaliação só recebe números!' })
+
+        if (isNaN(estoque) === true)
+            return resp.send({ erro: ' Campo Estoque só recebe números!' })
+
 
         let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
-            return resp.send({ erro: 'Produto já existente' });
+            return resp.send({ erro: ' Produto já existente' });
 
 
         let r = await db.tb_produto.create({
@@ -61,6 +71,7 @@ app.put('/produto/:id', async (req, resp) => {
     try {
         let { id } = req.params;
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
+        
 
     
         if (nome == '' || categoria == '' || precoDe == '' || precoPor == '' || avaliacao == '' || descricao == '' || 
@@ -73,9 +84,18 @@ app.put('/produto/:id', async (req, resp) => {
         if (precoDe <= 0 || precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
             return resp.send({ erro: ' Insira apenas números positivos!' })
         
-        if (Math.sign(precoDe)   !== Math.sign(1) || Math.sign(precoPor) !== Math.sign(1) || 
-            Math.sign(avaliacao) !== Math.sign(1) || Math.sign(estoque)  !== Math.sign(1))
-                return resp.send({ erro: ' Caracteres não são permitidos!' })
+            
+        if (isNaN(precoDe) === true)
+            return resp.send({ erro: ' Campo Preço De só recebe números!' })
+
+        if (isNaN(precoPor) === true)
+            return resp.send({ erro: ' Campo Preço Por só recebe números!' })
+
+        if (isNaN(avaliacao) === true)
+            return resp.send({ erro: ' Campo Avaliação só recebe números!' })
+
+        if (isNaN(estoque) === true)
+            return resp.send({ erro: ' Campo Estoque só recebe números!' })
 
 
         let r = await db.tb_produto.update({

@@ -80,7 +80,7 @@ export default function Conteudo() {
     async function remover(id) {
         confirmAlert({
             title: 'Remover produto',
-            message: `Tem certeza que deseja remover o produto ${id} ?`,
+            message: `Certeza que deseja remover o produto ${id} ?`,
             buttons: [
               {
                 label: 'Sim',
@@ -100,19 +100,6 @@ export default function Conteudo() {
             ]
         });
     }
-
-    async function onlyNumber(evt) {
-        var theEvent = evt || window.event;
-        var key = theEvent.keyCode || theEvent.which;
-        key = String.fromCharCode( key );
-        var regex = /^[0-9.]+$/;
-        if( !regex.test(key) ) {
-           theEvent.returnValue = false;
-           if(theEvent.preventDefault) theEvent.preventDefault();
-                toast.error(`❌ Somente números são permitidos!!`)
-        }
-     }
-
 
     async function alterando(item) {
         setImagem(item.img_produto)
