@@ -19,13 +19,20 @@ app.post('/produto', async (req, resp) => {
     try {
         let { nome, categoria, precoDe, precoPor, avaliacao, descricao, estoque, imagem } = req.body;
 
-        if (nome == '' || categoria == '' || precoDe == '' || precoPor == '' || avaliacao == '' || descricao == '' 
-            || estoque == '' || imagem == '')
+        if (nome == '' || categoria == '' || precoDe == '' || precoPor == '' || avaliacao == '' || descricao == '' || 
+            estoque == '' || imagem == '')
                 return resp.send({ erro: ' Preencha todos os campos!' })
 
         if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4 || imagem.length <= 4)
             return resp.send({ erro: ' Insira mais que 4 caracteres!' })
-            
+
+        if (precoDe <= 0 || precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
+            return resp.send({ erro: ' Insira apenas números positivos!' })
+        
+        if (Math.sign(precoDe)   !== Math.sign(1) || Math.sign(precoPor) !== Math.sign(1) || 
+            Math.sign(avaliacao) !== Math.sign(1) || Math.sign(estoque)  !== Math.sign(1))
+                return resp.send({ erro: ' Caracteres não são permitidos!' })
+
         let produtoRepetido = await db.tb_produto.findOne({ where: { nm_produto: nome } });
         if (produtoRepetido != null)
             return resp.send({ erro: 'Produto já existente' });
@@ -46,8 +53,7 @@ app.post('/produto', async (req, resp) => {
 
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: 'Deu erro' });
-        console.log(e.toString());
+        resp.send({ erro: e.toString() });
     }
 })
 
@@ -63,6 +69,13 @@ app.put('/produto/:id', async (req, resp) => {
 
         if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4 || imagem.length <= 4)
             return resp.send({ erro: ' Insira mais que 4 caracteres!' })
+
+        if (precoDe <= 0 || precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
+            return resp.send({ erro: ' Insira apenas números positivos!' })
+        
+        if (Math.sign(precoDe)   !== Math.sign(1) || Math.sign(precoPor) !== Math.sign(1) || 
+            Math.sign(avaliacao) !== Math.sign(1) || Math.sign(estoque)  !== Math.sign(1))
+                return resp.send({ erro: ' Caracteres não são permitidos!' })
 
 
         let r = await db.tb_produto.update({

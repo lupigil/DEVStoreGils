@@ -55,7 +55,6 @@ export default function Conteudo() {
             
             if (inse.erro) {
                 toast.error(`❌ ${inse.erro}`)
-                limparCampos();
             }
             else {
                 toast.dark('✔️ Produto inserido com sucesso');
@@ -164,7 +163,7 @@ export default function Conteudo() {
                 
                     <div className="box-input1">
                         <div className="label2">Preço DE:</div>
-                        <DevInput type="text" onKeyPress={onlyNumber} value={precoDe} onChange={e => setPrecoDe(e.target.value)} />
+                        <DevInput type="text"  value={precoDe} onChange={e => setPrecoDe(e.target.value)} />
                     </div>
                 </div>
 
@@ -176,19 +175,19 @@ export default function Conteudo() {
                 
                     <div className="box-input1">
                         <div className="label4">Preço POR:</div>
-                        <DevInput type="text" onKeyPress={onlyNumber} value={precoPor} onChange={e => setPrecoPor(e.target.value)} />
+                        <DevInput type="text"  value={precoPor} onChange={e => setPrecoPor(e.target.value)} />
                     </div>    
                 </div> 
 
                 <div className="containerInput3">
                     <div className="box-input2">
                         <div className="label5">Avaliação:</div>
-                        <DevInput type="text" onKeyPress={onlyNumber} value={avaliacao} onChange={e => setAvaliacao(e.target.value)} />
+                        <DevInput type="text"  value={avaliacao} onChange={e => setAvaliacao(e.target.value)} />
                     </div>
                 
                     <div className="box-input1">
                         <div className="label6">Estoque:</div>
-                        <DevInput type="text" onKeyPress={onlyNumber} value={estoque} onChange={e => setEstoque(e.target.value)} />
+                        <DevInput type="text"  value={estoque} onChange={e => setEstoque(e.target.value)} />
                     </div>
                 </div>  
 
@@ -240,7 +239,7 @@ export default function Conteudo() {
 
                             <tr className={i % 2 === 0 ? "linha-alternada" : ""}>
                                 <td title={item.img_produto}>
-                                    <img src={item.img_produto} alt="" style={{ width: '40px', height: '35px' }} /> 
+                                    <img src={item.img_produto} alt="" style={{ width: '44px', height: '44px' }} /> 
                                 </td>
                                 <td className="idTb1">{item.id_produto}</td>
                                 
