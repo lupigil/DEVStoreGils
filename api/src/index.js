@@ -23,12 +23,25 @@ app.post('/produto', async (req, resp) => {
             estoque == '' || imagem == '')
                 return resp.send({ erro: ' Preencha todos os campos!' })
 
-        if (nome.length <= 4 || categoria.length <= 4 || descricao.length <= 4 || imagem.length <= 4)
-            return resp.send({ erro: ' Insira mais que 4 caracteres!' })
+
+        if (nome.length <= 4)
+            return resp.send({ erro: ' Insira mais que 4 caracteres no campo Nome!' })
+
+        if (categoria.length <= 4)
+            return resp.send({ erro: ' Insira mais que 4 caracteres no campo Categoria!' })
+
+        if (descricao.length <= 4)
+            return resp.send({ erro: ' Insira mais que 4 caracteres no campo Descrição!' })
+
+        if (imagem.length <= 4)
+            return resp.send({ erro: ' Insira mais que 4 caracteres no campo Link Imagem!' })
+
+
 
         if (precoDe <= 0 || precoPor <= 0 || avaliacao <= 0 || estoque <= 0)
             return resp.send({ erro: ' Insira apenas números positivos!' })
         
+
 
         if (isNaN(precoDe) === true)
             return resp.send({ erro: ' Campo Preço De só recebe números!' })
